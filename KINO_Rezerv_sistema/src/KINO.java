@@ -34,11 +34,21 @@ public class KINO extends javax.swing.JFrame {
         Velparole_reg_txt = new javax.swing.JTextField();
         Epast_reg_txt = new javax.swing.JTextField();
         Reģisretes_button1 = new javax.swing.JButton();
+        Galvenais_Logs = new javax.swing.JDialog();
+        K1NO = new javax.swing.JLabel();
+        profile_icon = new javax.swing.JLabel();
+        litotajs_vards = new javax.swing.JLabel();
+        Search_field = new javax.swing.JTextField();
+        Fillmas_logs = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
+        Filmas_informācija = new javax.swing.JDialog();
         KINO = new javax.swing.JLabel();
         Lietvarda_ielog_txt = new javax.swing.JTextField();
         parole_ielog_txt = new javax.swing.JTextField();
         Ielogoties_button = new javax.swing.JButton();
         Reģisretes_button = new javax.swing.JButton();
+
+        Reģistracija.setTitle("Reģistracija");
 
         KINOreg.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         KINOreg.setText("KINO.reg");
@@ -113,6 +123,75 @@ public class KINO extends javax.swing.JFrame {
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
+        Galvenais_Logs.setTitle("Filmu saraksts");
+
+        K1NO.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        K1NO.setText("KINO");
+
+        profile_icon.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        profile_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mini_profile.png"))); // NOI18N
+
+        litotajs_vards.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        litotajs_vards.setText("Lietotajs");
+
+        Search_field.setText("🔍 search...");
+        Search_field.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Search_fieldActionPerformed(evt);
+            }
+        });
+
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+        Fillmas_logs.setViewportView(jPanel1);
+
+        javax.swing.GroupLayout Galvenais_LogsLayout = new javax.swing.GroupLayout(Galvenais_Logs.getContentPane());
+        Galvenais_Logs.getContentPane().setLayout(Galvenais_LogsLayout);
+        Galvenais_LogsLayout.setHorizontalGroup(
+            Galvenais_LogsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Galvenais_LogsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(Galvenais_LogsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Fillmas_logs)
+                    .addComponent(Search_field, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, Galvenais_LogsLayout.createSequentialGroup()
+                        .addComponent(K1NO)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
+                        .addComponent(litotajs_vards)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(profile_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        Galvenais_LogsLayout.setVerticalGroup(
+            Galvenais_LogsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Galvenais_LogsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(Galvenais_LogsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(Galvenais_LogsLayout.createSequentialGroup()
+                        .addComponent(litotajs_vards, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(1, 1, 1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, Galvenais_LogsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(K1NO)
+                        .addComponent(profile_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Search_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Fillmas_logs, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        Filmas_informācija.setTitle("Filmu informacija");
+
+        javax.swing.GroupLayout Filmas_informācijaLayout = new javax.swing.GroupLayout(Filmas_informācija.getContentPane());
+        Filmas_informācija.getContentPane().setLayout(Filmas_informācijaLayout);
+        Filmas_informācijaLayout.setHorizontalGroup(
+            Filmas_informācijaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        Filmas_informācijaLayout.setVerticalGroup(
+            Filmas_informācijaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Galvenais logs");
 
@@ -139,15 +218,14 @@ public class KINO extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(parole_ielog_txt)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(Ielogoties_button, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Reģisretes_button, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(KINO)
-                            .addGap(0, 0, Short.MAX_VALUE))
-                        .addComponent(Lietvarda_ielog_txt)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Ielogoties_button, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Reģisretes_button, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(KINO)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(Lietvarda_ielog_txt))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -168,6 +246,10 @@ public class KINO extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Search_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_fieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Search_fieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,7 +288,11 @@ public class KINO extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Epast_reg_txt;
+    private javax.swing.JScrollPane Fillmas_logs;
+    private javax.swing.JDialog Filmas_informācija;
+    private javax.swing.JDialog Galvenais_Logs;
     private javax.swing.JButton Ielogoties_button;
+    private javax.swing.JLabel K1NO;
     private javax.swing.JLabel KINO;
     private javax.swing.JLabel KINOreg;
     private javax.swing.JTextField Lietvarda_ielog_txt;
@@ -215,9 +301,13 @@ public class KINO extends javax.swing.JFrame {
     private javax.swing.JButton Reģisretes_button;
     private javax.swing.JButton Reģisretes_button1;
     private javax.swing.JDialog Reģistracija;
+    private javax.swing.JTextField Search_field;
     private javax.swing.JTextField Uzvards_reg_txt;
     private javax.swing.JTextField Vards_reg_txt;
     private javax.swing.JTextField Velparole_reg_txt;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel litotajs_vards;
     private javax.swing.JTextField parole_ielog_txt;
+    private javax.swing.JLabel profile_icon;
     // End of variables declaration//GEN-END:variables
 }
