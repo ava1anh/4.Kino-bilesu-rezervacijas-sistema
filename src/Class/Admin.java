@@ -12,14 +12,14 @@ public class Admin {
 
     private int id;
     private int userId;
-    private String tiesibas;
+    private String rights;
     
     public Admin(){
     }
     
-    public Admin(int userId, String tiesibas){
+    public Admin(int userId, String rights){
         this.userId = userId;
-        this.tiesibas = tiesibas;
+        this.rights = rights;
     }
    
     public int getId(){
@@ -38,11 +38,11 @@ public class Admin {
         this.userId = userId;
     }
     
-    public String getTiesibas(){
-        return tiesibas;
+    public String getRights(){
+        return rights;
     }
     
-    public void setTiesibas(String tiesibas){
-        this.tiesibas = tiesibas;
+    public void setRights(String rights){
+        this.rights = rights;
     }
 }
