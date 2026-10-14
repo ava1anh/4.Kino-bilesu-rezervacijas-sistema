@@ -11,12 +11,12 @@ package Class;
 public class Hall {
     
     private int id;
-    private String nosaukums;
-    private int vietuSkaits;
+    private String name;
+    private int  placesNumber;
     
-    public Hall(String nosaukums, int vietuSkaits){
-        this.nosaukums = nosaukums;
-        this.vietuSkaits= vietuSkaits;
+    public Hall(String name, int placesNumber){
+        this.name = name;
+        this.placesNumber= placesNumber;
     }
     
     public int getId(){
@@ -27,23 +27,23 @@ public class Hall {
         this.id = id;
     }
     
-    public String getNosaukums(){
-        return nosaukums;
+    public String getName(){
+        return name;
     }
     
-    public void setNosakumus(String nosaukums){
-        this.nosaukums = nosaukums;
+    public void setName(String name){
+        this.name = name;
     }
     
-    public int getVietuSkaits(){
-        return vietuSkaits;
+    public int getPlacesNumber(){
+        return placesNumber;
     }
     
-    public void setVietuSkaits(int vietuSkaits){
-        this.vietuSkaits = vietuSkaits;
+    public void setPlacesNumber(int placesNumber){
+        this.placesNumber = placesNumber;
     }
     
     public String toString(){
-        return nosaukums + "(" + vietuSkaits + " vietas)";
+        return name + "(" + placesNumber + " vietas)";
     }
 }
