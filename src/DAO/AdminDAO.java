@@ -19,11 +19,11 @@ public class AdminDAO {
      * Piešķir lietotājam administratora tiesības.
      */
     public int addAdmin(Admin admin){
-        String sql = "INSERT INTO ADMIN (user_id tiesibas) VALUES(?, ?)";
+        String sql = "INSERT INTO ADMIN (user_id rights) VALUES(?, ?)";
         try (Connection conn = DBConnection.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS)){
             ps.setInt(1, admin.getUserId());
-            ps.setString(2, admin.getTiesibas());
+            ps.setString(2, admin.getRights());
             ps.executeUpdate();
             try (ResultSet keys = ps.getGeneratedKeys()) {
                 if (keys.next()) {
@@ -49,7 +49,7 @@ public class AdminDAO {
                     Admin a = new Admin();
                     a.setId(rs.getInt("id"));
                     a.setUserId(rs.getInt("user_id"));
-                    a.setTiesibas(rs.getString("tiesibas"));
+                    a.setRights(rs.getString("tiesibas"));
                     return a;
                 }
             }
