@@ -11,83 +11,182 @@ package Class;
 public class User {
 
     private int id;
-    private String vards;
-    private String uzvards;
-    private String lietotajvards;
-    private String parolehash;
-    private String epasts;
-    private String loma;
+    private String firstName;
+    private String lastName;
+    private String username;
+    private String email;
+    private String passwordHash;
+    private String role;
 
     public User(){
     }  
     
-    public User(String vards, String uzvards, String lietotajvards, String parolehash, String epasts, String loma){
-    
-        this.vards = vards;
-        this.uzvards = uzvards;
-        this.lietotajvards = lietotajvards;
-        this.parolehash = parolehash;
-        this.epasts = epasts;
-        this.loma = loma;           
+    /**
+     * Izveido jaunu objektu ar norādītajiem datiem (identifikators tiek piešķirts datu bāzē).
+     *
+     * @param firstName lietotāja vārds
+     * @param lastName lietotāja uzvārds
+     * @param username lietotājvārds (login)
+     * @param email e-pasta adrese
+     * @param role lietotāja loma (customer vai admin)
+     */
+    public User(String firstName, String lastName, String username, String email, String role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.role = role;
     }
-    
-    public int getId(){
+
+    /**
+     * Atgriež lietotāja identifikatoru.
+     *
+     * @return lietotāja identifikators
+     */
+    public int getId() {
         return id;
     }
-    
-    public void setId(int id){
+
+    /**
+     * Iestata lietotāja identifikatoru.
+     *
+     * @param id lietotāja identifikators
+     */
+    public void setId(int id) {
         this.id = id;
     }
-    
-    public String getVards(){
-        return vards;
+
+    /**
+     * Atgriež lietotāja vārdu.
+     *
+     * @return lietotāja vārds
+     */
+    public String getFirstName() {
+        return firstName;
     }
-    
-    public void setVards(String vards){
-        this.vards = vards;
+
+    /**
+     * Iestata lietotāja vārdu.
+     *
+     * @param firstName lietotāja vārds
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
-    
-    public String getUzvards(){
-        return uzvards;
+
+    /**
+     * Atgriež lietotāja uzvārdu.
+     *
+     * @return lietotāja uzvārds
+     */
+    public String getLastName() {
+        return lastName;
     }
-    
-    public void setUzvards(String uzvards){
-        this.uzvards = uzvards;
+
+    /**
+     * Iestata lietotāja uzvārdu.
+     *
+     * @param lastName lietotāja uzvārds
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
-    
-    public String getLietotajvards(){
-        return lietotajvards;
+
+    /**
+     * Atgriež lietotājvārdu.
+     *
+     * @return lietotājvārds (login)
+     */
+    public String getUsername() {
+        return username;
     }
-    
-    public void setLietotajvards(String lietotajvards){
-        this.lietotajvards = lietotajvards;
+
+    /**
+     * Iestata lietotājvārdu.
+     *
+     * @param username lietotājvārds (login)
+     */
+    public void setUsername(String username) {
+        this.username = username;
     }
-    
-    public String getParolehash(){
-        return parolehash;
+
+    /**
+     * Atgriež e-pasta adresi.
+     *
+     * @return e-pasta adrese
+     */
+    public String getEmail() {
+        return email;
     }
-    
-    public void setParolehash(String parolehash){
-        this.parolehash = parolehash;
+
+    /**
+     * Iestata e-pasta adresi.
+     *
+     * @param email e-pasta adrese
+     */
+    public void setEmail(String email) {
+        this.email = email;
     }
-    
-    public String getEpasts(){
-        return epasts;
+
+    /**
+     * Atgriež paroles jaucējkodu.
+     *
+     * @return paroles SHA-256 jaucējkods
+     */
+    public String getPasswordHash() {
+        return passwordHash;
     }
-    
-    public void setEpasts(String epasts){
-        this.epasts = epasts;
+
+    /**
+     * Iestata paroles jaucējkodu.
+     *
+     * @param passwordHash paroles SHA-256 jaucējkods
+     */
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
-    
-    public String getLoma(){
-        return loma;
+
+    /**
+     * Atgriež lietotāja lomu.
+     *
+     * @return lietotāja loma (customer vai admin)
+     */
+    public String getRole() {
+        return role;
     }
-    
-    public void setLoma(String loma){
-        this.loma = loma;
+
+    /**
+     * Iestata lietotāja lomu.
+     *
+     * @param role lietotāja loma (customer vai admin)
+     */
+    public void setRole(String role) {
+        this.role = role;
     }
-    
-    public String toString(){
-        return vards +" "+ uzvards + "(" + lietotajvards + ")";
+
+    /** Lomas nosaukums parastam klientam. */
+    public static final String ROLE_CUSTOMER = "customer";
+
+    /** Lomas nosaukums administratoram. */
+    public static final String ROLE_ADMIN = "admin";
+
+    /**
+     * Pārbauda, vai lietotājs ir administrators.
+     *
+     * @return true, ja lietotāja loma ir admin
+     */
+    public boolean isAdmin() {
+        return ROLE_ADMIN.equals(role);
     }
+
+    /**
+     * Atgriež lietotāja vārdu, uzvārdu un lietotājvārdu tekstā.
+     *
+     * @return teksta attēlojums
+     */
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + " (" + username + ")";
+    }
+
 }

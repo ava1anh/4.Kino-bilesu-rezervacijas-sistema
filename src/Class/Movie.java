@@ -11,62 +11,127 @@ package Class;
 public class Movie {
 
     private int id;
-    private String nosaukums;
-    private String zanrs;
-    private int ilgumsMin;
-    private String apraksts;
+    private String title;
+    private String genre;
+    private int durationMin;
+    private String description;
     
-    public Movie(){ 
+    public Movie() {
     }
-    
-    public Movie(String nosaukums, String zanrs, int ilgumsMin, String apraksts){
-        this.nosaukums = nosaukums;
-        this.zanrs = zanrs;
-        this.ilgumsMin = ilgumsMin;
-        this.apraksts = apraksts;
+
+    /**
+     * Izveido jaunu objektu ar norādītajiem datiem (identifikators tiek piešķirts datu bāzē).
+     *
+     * @param title filmas nosaukums
+     * @param genre filmas žanrs
+     * @param durationMin filmas ilgums minūtēs
+     * @param description filmas apraksts
+     */
+    public Movie(String title, String genre, int durationMin, String description) {
+        this.title = title;
+        this.genre = genre;
+        this.durationMin = durationMin;
+        this.description = description;
     }
-    
-    public int getId(int id){
+
+    /**
+     * Atgriež filmas identifikatoru.
+     *
+     * @return filmas identifikators
+     */
+    public int getId() {
         return id;
     }
-    
-    public void setId(int id){
+
+    /**
+     * Iestata filmas identifikatoru.
+     *
+     * @param id filmas identifikators
+     */
+    public void setId(int id) {
         this.id = id;
     }
-    
-    public String getNosaukums(){
-        return nosaukums;
+
+    /**
+     * Atgriež filmas nosaukumu.
+     *
+     * @return filmas nosaukums
+     */
+    public String getTitle() {
+        return title;
     }
-    
-    public void setNosaukums(String nosaukums){
-        this.nosaukums = nosaukums;
+
+    /**
+     * Iestata filmas nosaukumu.
+     *
+     * @param title filmas nosaukums
+     */
+    public void setTitle(String title) {
+        this.title = title;
     }
-    
-    public String getZanrs(){
-        return zanrs;
+
+    /**
+     * Atgriež filmas žanru.
+     *
+     * @return filmas žanrs
+     */
+    public String getGenre() {
+        return genre;
     }
-    
-    public void setZanrs(String zanrs){
-        this.zanrs = zanrs;
+
+    /**
+     * Iestata filmas žanru.
+     *
+     * @param genre filmas žanrs
+     */
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
-    
-    public int getIlgumsMin(){
-        return ilgumsMin;
+
+    /**
+     * Atgriež filmas ilgumu minūtēs.
+     *
+     * @return filmas ilgums minūtēs
+     */
+    public int getDurationMin() {
+        return durationMin;
     }
-    
-    public void setIlgumsMin(int ilgumsMin){
-        this.ilgumsMin = ilgumsMin;
+
+    /**
+     * Iestata filmas ilgumu minūtēs.
+     *
+     * @param durationMin filmas ilgums minūtēs
+     */
+    public void setDurationMin(int durationMin) {
+        this.durationMin = durationMin;
     }
-    
-    public String getApraksts(){
-        return apraksts;
+
+    /**
+     * Atgriež filmas aprakstu.
+     *
+     * @return filmas apraksts
+     */
+    public String getDescription() {
+        return description;
     }
-    
-    public void setApraksts(String apraksts){
-        this.apraksts = apraksts;
+
+    /**
+     * Iestata filmas aprakstu.
+     *
+     * @param description filmas apraksts
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
-    
-    public String toString(){
-        return nosaukums + "(" + zanrs + ", " + ilgumsMin + " min)";
+
+    /**
+     * Atgriež filmas nosaukumu, žanru un ilgumu tekstā.
+     *
+     * @return teksta attēlojums
+     */
+    @Override
+    public String toString() {
+        return title + " (" + genre + ", " + durationMin + " min)";
     }
+
 }

@@ -3,25 +3,40 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DAO;
+
+import db.DatabaseManager;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import Class.Admin;
-import java.sql.*;
 /**
  *
  * @author Andrejs.Ivaninoks
  */
 
 /**
- * Nodrošina darbības ar tabulu ADMIN, kas satur papildu tiesības konkrētam lietotājam (User ar lomu "administrators").
+ * Datu piekļuves klase darbam ar tabulu ADMINS, kas satur papildu tiesības lietotājam ar lomu admin.
  */
 public class AdminDAO {
 
     /**
-     * Piešķir lietotājam administratora tiesības.
+     * Izveido datu piekļuves objektu (savienojums ar datubāzi tiek izveidots katras darbības laikā).
      */
-    public int addAdmin(Admin admin){
-        String sql = "INSERT INTO ADMIN (user_id rights) VALUES(?, ?)";
-        try (Connection conn = DBConnection.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS)){
+    public AdminDAO() {
+    }
+
+    /**
+     * Piešķir lietotājam administratora tiesības.
+     *
+     * @param admin administratora dati (userId un rights)
+     * @return jaunā ieraksta identifikators vai -1 kļūdas gadījumā
+     */
+    public int addAdmin(Admin admin) {
+        String sql = "INSERT INTO admins (user_id, rights) VALUES (?, ?)";
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, admin.getUserId());
             ps.setString(2, admin.getRights());
             ps.executeUpdate();
@@ -30,33 +45,35 @@ public class AdminDAO {
                     return keys.getInt(1);
                 }
             }
-        }
-        catch (SQLException e) {
-            System.err.println("Kļūda piešķirot administratora tiesības: " + e.getMessage());
+        } catch (SQLException e) {
+            DaoLog.report(e);
         }
         return -1;
     }
-    
+
     /**
-    * Pārbauda, vai konkrētajam lietotājam ir administratora tiesības, un atgriež tās.
-    */
+     * Atrod lietotāja administratora tiesības.
+     *
+     * @param userId lietotāja identifikators
+     * @return administratora ieraksts vai null, ja lietotājam nav administratora tiesību
+     */
     public Admin findByUserId(int userId) {
-        String sql = "SELECT * FROM ADMIN WHERE user_id = ?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {ps.setInt(1, userId);
+        String sql = "SELECT * FROM admins WHERE user_id = ?";
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    Admin a = new Admin();
-                    a.setId(rs.getInt("id"));
-                    a.setUserId(rs.getInt("user_id"));
-                    a.setRights(rs.getString("tiesibas"));
-                    return a;
+                    Admin admin = new Admin();
+                    admin.setId(rs.getInt("id"));
+                    admin.setUserId(rs.getInt("user_id"));
+                    admin.setRights(rs.getString("rights"));
+                    return admin;
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Kļūda meklējot administratoru: " + e.getMessage());
+            DaoLog.report(e);
         }
         return null;
     }
 }
-

@@ -12,38 +12,87 @@ public class Hall {
     
     private int id;
     private String name;
-    private int  placesNumber;
+    private int seatCount;
     
-    public Hall(String name, int placesNumber){
-        this.name = name;
-        this.placesNumber= placesNumber;
+
+    public Hall() {
     }
-    
-    public int getId(){
+
+    /**
+     * Izveido jaunu objektu ar norādītajiem datiem (identifikators tiek piešķirts datu bāzē).
+     *
+     * @param name zāles nosaukums
+     * @param seatCount vietu skaits zālē
+     */
+    public Hall(String name, int seatCount) {
+        this.name = name;
+        this.seatCount = seatCount;
+    }
+
+    /**
+     * Atgriež zāles identifikatoru.
+     *
+     * @return zāles identifikators
+     */
+    public int getId() {
         return id;
     }
-    
-    public void setId(int id){
+
+    /**
+     * Iestata zāles identifikatoru.
+     *
+     * @param id zāles identifikators
+     */
+    public void setId(int id) {
         this.id = id;
     }
-    
-    public String getName(){
+
+    /**
+     * Atgriež zāles nosaukumu.
+     *
+     * @return zāles nosaukums
+     */
+    public String getName() {
         return name;
     }
-    
-    public void setName(String name){
+
+    /**
+     * Iestata zāles nosaukumu.
+     *
+     * @param name zāles nosaukums
+     */
+    public void setName(String name) {
         this.name = name;
     }
-    
-    public int getPlacesNumber(){
-        return placesNumber;
+
+    /**
+     * Atgriež vietu skaitu zālē.
+     *
+     * @return vietu skaits zālē
+     */
+    public int getSeatCount() {
+        return seatCount;
     }
-    
-    public void setPlacesNumber(int placesNumber){
-        this.placesNumber = placesNumber;
+
+    /**
+     * Iestata vietu skaitu zālē.
+     *
+     * @param seatCount vietu skaits zālē
+     */
+    public void setSeatCount(int seatCount) {
+        this.seatCount = seatCount;
     }
-    
-    public String toString(){
-        return name + "(" + placesNumber + " vietas)";
+
+    /**
+     * Atgriež zāles nosaukumu un vietu skaitu tekstā.
+     *
+     * @return teksta attēlojums
+     */
+    @Override
+    public String toString() {
+        return name + " (" + seatCount + " vietas)";
     }
+
 }
+
+

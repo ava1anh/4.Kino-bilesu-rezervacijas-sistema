@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DAO;
+
+import db.DatabaseManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,121 +12,152 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import Class.Movie;
 /**
  *
  * @author Andrejs.Ivaninoks
  */
 public class MovieDAO {
-    
+
+    /**
+     * Izveido datu piekļuves objektu (savienojums ar datubāzi tiek izveidots katras darbības laikā).
+     */
+    public MovieDAO() {
+    }
+
+    /**
+     * Pievieno jaunu filmu.
+     *
+     * @param movie filmas dati
+     * @return jaunās filmas identifikators vai -1 kļūdas gadījumā
+     */
     public int addMovie(Movie movie) {
-        String sql = "INSERT INTO MOVIES(nosaukums, zanrs, ilgums, apraksts) VALUES (?, ?, ?)";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            pstmt.setString(1, movie.getNosaukums());
-            pstmt.setString(2, movie.getZanrs());
-            pstmt.setInt(3, movie.getIlgums());
-            pstmt.setString(4, movie.getApraksts());
-            int affectedRows = pstmt.executeUpdate();
-            if (affectedRows == 0) {
-                throw new SQLException("Creating movie failed, no rows affected.");
-            }
-            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    return generatedKeys.getInt(1);
-                } else {
-                    throw new SQLException("Creating movie failed, no ID obtained.");
+        String sql = "INSERT INTO movies (title, genre, duration_min, description) VALUES (?, ?, ?, ?)";
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, movie.getTitle());
+            ps.setString(2, movie.getGenre());
+            ps.setInt(3, movie.getDurationMin());
+            ps.setString(4, movie.getDescription());
+            ps.executeUpdate();
+            try (ResultSet keys = ps.getGeneratedKeys()) {
+                if (keys.next()) {
+                    return keys.getInt(1);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            return -1;
+            DaoLog.report(e);
         }
+        return -1;
     }
 
+    /**
+     * Atgriež visas filmas, kārtotas pēc nosaukuma.
+     *
+     * @return filmu saraksts (tukšs, ja filmu nav)
+     */
     public List<Movie> findAllMovies() {
-        List<Movie> results = new ArrayList<>();
-        String sql = "SELECT * FROM MOVIES";
-        try (Connection conn = DBConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                Movie movie = new Movie();
-                movie.setId(rs.getInt("id"));
-                movie.setNosaukums(rs.getString("nosaukums"));
-                movie.setZanrs(rs.getString("zanrs"));
-                movie.setIlgums(rs.getInt("ilgums"));
-                movie.setApraksts(rs.getString("apraksts"));
-                results.add(movie);
-            }
-        } catch (SQLException e) {
-            System.err.println("Error while fetching movies: " + e.getMessage());
-        }
-        return results
-        ;
+        return query("SELECT * FROM movies ORDER BY title", null);
     }
 
-    public List<Movie> search(String criterion) {
-        List<Movie> results = new ArrayList<>();
-        String sql = "SELECT * FROM MOVIES WHERE nosaukums LIKE ? OR zanrs LIKE ?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            String searchPattern = "%" + criterion + "%";
-            pstmt.setString(1, searchPattern);
-            pstmt.setString(2, searchPattern);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
-                    Movie movie = new Movie();
-                    movie.setId(rs.getInt("id"));
-                    movie.setNosaukums(rs.getString("nosaukums"));
-                    movie.setZanrs(rs.getString("zanrs"));
-                    movie.setIlgums(rs.getInt("ilgums"));
-                    movie.setApraksts(rs.getString("apraksts"));
-                    results.add(movie);
+    /**
+     * Atrod filmu pēc identifikatora.
+     *
+     * @param id filmas identifikators
+     * @return filma vai null, ja nav atrasta
+     */
+    public Movie findById(int id) {
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM movies WHERE id = ?")) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return mapRow(rs);
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error while searching movies: " + e.getMessage());
+            DaoLog.report(e);
         }
-        return results;
-    }   
+        return null;
+    }
 
+    /**
+     * Meklē filmas pēc nosaukuma vai žanra fragmenta (lielie un mazie burti netiek šķirti).
+     *
+     * @param criterion meklējamais teksts
+     * @return atrasto filmu saraksts
+     */
+    public List<Movie> search(String criterion) {
+        String pattern = "%" + (criterion == null ? "" : criterion.trim().toLowerCase()) + "%";
+        return query("SELECT * FROM movies WHERE LOWER(title) LIKE ? OR LOWER(genre) LIKE ? ORDER BY title", pattern);
+    }
+
+    /**
+     * Atjaunina filmas datus.
+     *
+     * @param movie filma ar jauniem datiem (jānorāda identifikators)
+     * @return true, ja ieraksts tika atjaunināts
+     */
     public boolean updateMovie(Movie movie) {
-        String sql = "UPDATE MOVIES SET nosaukums = ?, zanrs = ?, ilgums = ?, apraksts = ? WHERE id = ?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, movie.getNosaukums());
-            pstmt.setString(2, movie.getZanrs());
-            pstmt.setInt(3, movie.getIlgums());
-            pstmt.setString(4, movie.getApraksts());
-            pstmt.setInt(5, movie.getId());
-            int affectedRows = pstmt.executeUpdate();
-            return affectedRows > 0;
+        String sql = "UPDATE movies SET title = ?, genre = ?, duration_min = ?, description = ? WHERE id = ?";
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, movie.getTitle());
+            ps.setString(2, movie.getGenre());
+            ps.setInt(3, movie.getDurationMin());
+            ps.setString(4, movie.getDescription());
+            ps.setInt(5, movie.getId());
+            return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("Error while updating movie: " + e.getMessage());
+            DaoLog.report(e);
             return false;
         }
     }
 
+    /**
+     * Dzēš filmu kopā ar tās seansiem un to rezervācijām (ON DELETE CASCADE).
+     *
+     * @param id filmas identifikators
+     * @return true, ja filma tika dzēsta
+     */
     public boolean deleteMovie(int id) {
-        String sql = "DELETE FROM MOVIES WHERE id = ?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            int affectedRows = pstmt.executeUpdate();
-            return affectedRows > 0;
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement("DELETE FROM movies WHERE id = ?")) {
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("Error while deleting movie: " + e.getMessage());
+            DaoLog.report(e);
             return false;
         }
+    }
+
+    private List<Movie> query(String sql, String pattern) {
+        List<Movie> movies = new ArrayList<>();
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            if (pattern != null) {
+                ps.setString(1, pattern);
+                ps.setString(2, pattern);
+            }
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    movies.add(mapRow(rs));
+                }
+            }
+        } catch (SQLException e) {
+            DaoLog.report(e);
+        }
+        return movies;
     }
 
     private Movie mapRow(ResultSet rs) throws SQLException {
         Movie movie = new Movie();
         movie.setId(rs.getInt("id"));
-        movie.setNosaukums(rs.getString("nosaukums"));
-        movie.setZanrs(rs.getString("zanrs"));
-        movie.setIlgums(rs.getInt("ilgums"));
-        movie.setApraksts(rs.getString("apraksts"));
+        movie.setTitle(rs.getString("title"));
+        movie.setGenre(rs.getString("genre"));
+        movie.setDurationMin(rs.getInt("duration_min"));
+        movie.setDescription(rs.getString("description"));
         return movie;
     }
 }
+

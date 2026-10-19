@@ -12,51 +12,105 @@ public class Seat {
     
     private int id;
     private int hallId;
-    private int rinda;
-    private int vietaNr;
+    private int seatRow;
+    private int seatNumber;
     
 public Seat(){
 }
 
-    public Seat(int hallId, int rinda, int vietaNr){
+    /**
+     * Izveido jaunu objektu ar norādītajiem datiem (identifikators tiek piešķirts datu bāzē).
+     *
+     * @param hallId zāles identifikators
+     * @param seatRow rindas numurs
+     * @param seatNumber vietas numurs rindā
+     */
+    public Seat(int hallId, int seatRow, int seatNumber) {
         this.hallId = hallId;
-        this.rinda = rinda;
-        this.vietaNr = vietaNr;
+        this.seatRow = seatRow;
+        this.seatNumber = seatNumber;
     }
 
+    /**
+     * Atgriež vietas identifikatoru.
+     *
+     * @return vietas identifikators
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Iestata vietas identifikatoru.
+     *
+     * @param id vietas identifikators
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Atgriež zāles identifikatoru.
+     *
+     * @return zāles identifikators
+     */
     public int getHallId() {
         return hallId;
     }
 
+    /**
+     * Iestata zāles identifikatoru.
+     *
+     * @param hallId zāles identifikators
+     */
     public void setHallId(int hallId) {
         this.hallId = hallId;
     }
 
-    public int getRinda() {
-        return rinda;
+    /**
+     * Atgriež rindas numuru.
+     *
+     * @return rindas numurs
+     */
+    public int getSeatRow() {
+        return seatRow;
     }
 
-    public void setRinda(int rinda) {
-        this.rinda = rinda;
+    /**
+     * Iestata rindas numuru.
+     *
+     * @param seatRow rindas numurs
+     */
+    public void setSeatRow(int seatRow) {
+        this.seatRow = seatRow;
     }
 
-    public int getVietaNr() {
-        return vietaNr;
+    /**
+     * Atgriež vietas numuru rindā.
+     *
+     * @return vietas numurs rindā
+     */
+    public int getSeatNumber() {
+        return seatNumber;
     }
 
-    public void setVietaNr(int vietaNr) {
-        this.vietaNr = vietaNr;
+    /**
+     * Iestata vietas numuru rindā.
+     *
+     * @param seatNumber vietas numurs rindā
+     */
+    public void setSeatNumber(int seatNumber) {
+        this.seatNumber = seatNumber;
     }
 
+    /**
+     * Atgriež rindas un vietas numuru tekstā.
+     *
+     * @return teksta attēlojums
+     */
+    @Override
     public String toString() {
-        return "Rinda " + rinda + ", vieta " + vietaNr;
+        return "Rinda " + seatRow + ", vieta " + seatNumber;
     }
+
 }

@@ -13,36 +13,73 @@ public class Admin {
     private int id;
     private int userId;
     private String rights;
-    
+
     public Admin(){
     }
     
-    public Admin(int userId, String rights){
+    /**
+     * Izveido jaunu objektu ar norādītajiem datiem (identifikators tiek piešķirts datu bāzē).
+     *
+     * @param userId saistītā lietotāja identifikators
+     * @param rights administratora tiesības
+     */
+    public Admin(int userId, String rights) {
         this.userId = userId;
         this.rights = rights;
     }
-   
-    public int getId(){
+
+    /**
+     * Atgriež administratora ieraksta identifikatoru.
+     *
+     * @return administratora ieraksta identifikators
+     */
+    public int getId() {
         return id;
     }
-    
-    public void setId(int aInt){
+
+    /**
+     * Iestata administratora ieraksta identifikatoru.
+     *
+     * @param id administratora ieraksta identifikators
+     */
+    public void setId(int id) {
         this.id = id;
     }
-    
-    public int getUserId(){
+
+    /**
+     * Atgriež saistītā lietotāja identifikatoru.
+     *
+     * @return saistītā lietotāja identifikators
+     */
+    public int getUserId() {
         return userId;
     }
-    
-    public void setUserId(int userId){
+
+    /**
+     * Iestata saistītā lietotāja identifikatoru.
+     *
+     * @param userId saistītā lietotāja identifikators
+     */
+    public void setUserId(int userId) {
         this.userId = userId;
     }
-    
-    public String getRights(){
+
+    /**
+     * Atgriež administratora tiesības.
+     *
+     * @return administratora tiesības
+     */
+    public String getRights() {
         return rights;
     }
-    
-    public void setRights(String rights){
+
+    /**
+     * Iestata administratora tiesības.
+     *
+     * @param rights administratora tiesības
+     */
+    public void setRights(String rights) {
         this.rights = rights;
     }
+
 }
