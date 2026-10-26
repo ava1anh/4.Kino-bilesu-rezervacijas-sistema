@@ -12,16 +12,6 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import util.PasswordUtil;
 
-/**
- * Nodrošina savienojumu ar Apache Derby (Embedded) datubāzi.
- *
- * <p>Pirmajā palaišanas reizē izveido datubāzi mapē <b>database/appdb</b>, visas tabulas un sākuma datus
- * (administratora kontu, zāles ar vietām, piemēra filmas un seansus). Nākamajās palaišanas reizēs
- * izmanto esošo datubāzi, tāpēc dati paliek saglabāti.</p>
- *
- * <p>Ceļš uz datubāzi ir relatīvs (attiecībā pret projekta mapi), tāpēc projektu var pārnest uz citu datoru
- * kopā ar mapi <b>database</b>.</p>
- */
 public class DatabaseManager {
 
     /** Noklusētais relatīvais ceļš uz datubāzi. */
