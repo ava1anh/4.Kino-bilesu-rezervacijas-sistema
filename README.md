@@ -1,4 +1,4 @@
-# 🎬 KINO – kino biļešu rezervācijas sistēma
+# KINO – kino biļešu rezervācijas sistēma
  
 Darbvirsmas lietotne kino seansu biļešu rezervēšanai, kas izstrādāta ar **Java Swing** (NetBeans GUI Builder) un
 **Apache Derby** datu bāzi. Klienti var apskatīt filmas un seansus, izvēlēties vietu zālē un rezervēt to; administrators
@@ -8,7 +8,7 @@ pārvalda filmas, seansus un rezervācijas.
 > Daugavpils Tehnoloģiju un tūrisma tehnikums, grupa **PR-32**, 2026./2027. m. g.
 > Projekta tēma: **7. Kino biļešu rezervācijas sistēma**.
  
-## 👥 Autori
+## Autori
  
 | Dalībnieks | GitHub |
 |---|---|
@@ -17,7 +17,7 @@ pārvalda filmas, seansus un rezervācijas.
  
 ---
  
-## ✨ Galvenās iespējas
+## Galvenās iespējas
  
 **Klients**
 - reģistrēšanās un ielogošanās (parole datu bāzē tiek glabāta kā SHA-256 jaucējkods);
@@ -29,7 +29,7 @@ pārvalda filmas, seansus un rezervācijas.
 - filmu pārvaldība (**pievienot / labot / dzēst**);
 - seansu pārvaldība (pievienot / dzēst), norādot zāli, datumu, laiku un cenu;
 - visu klientu rezervāciju apskate un atcelšana jebkurā laikā.
-## 📏 Biznesa noteikumi
+## Biznesa noteikumi
  
 | Noteikums | Vērtība |
 |---|---|
@@ -46,7 +46,7 @@ tikai burti (arī latviešu); korekts e-pasta formāts; datums formātā `gggg-m
  
 ---
  
-## 🛠️ Izmantotās tehnoloģijas
+## Izmantotās tehnoloģijas
  
 | Tehnoloģija | Pielietojums |
 |---|---|
@@ -61,7 +61,7 @@ Visas nepieciešamās bibliotēkas atrodas mapē [`lib/`](lib) – papildu insta
  
 ---
  
-## 🚀 Palaišana
+## Palaišana
  
 ### Prasības
 - **JDK 21** vai jaunāks;
@@ -85,11 +85,11 @@ Atsevišķi neko instalēt vai konfigurēt nav jāvajag. Datu bāzes failus var 
  
 Klienta kontu var izveidot logā **Reģistrēties**.
  
-> ⚠️ Administratora parole ir paredzēta tikai demonstrācijai – īstā lietošanā tā jānomaina.
+> Administratora parole ir paredzēta tikai demonstrācijai – īstā lietošanā tā jānomaina.
  
 ---
  
-## 📖 Īsa lietošanas instrukcija
+## Īsa lietošanas instrukcija
  
 **Klients**
 1. Sākuma logā nospiediet **Reģistrēties** un aizpildiet formu, pēc tam **Ielogoties**.
@@ -106,7 +106,7 @@ Klienta kontu var izveidot logā **Reģistrēties**.
 4. Logā **Rezervācijas** redzamas visas rezervācijas; administrators var atcelt jebkuru no tām.
 ---
  
-## 🧱 Arhitektūra
+## Arhitektūra
  
 ```
 GUI (CinemaGUI)  →  service  →  dao  →  JDBC (db.DatabaseManager)  →  Apache Derby
@@ -142,7 +142,7 @@ GUI (CinemaGUI)  →  service  →  dao  →  JDBC (db.DatabaseManager)  →  Ap
  
 ---
  
-## 🗄️ Datu bāze
+## Datu bāze
  
 Datu bāze sastāv no **7 savstarpēji saistītām tabulām**. Primārās atslēgas ir automātiski ģenerētas (`IDENTITY`),
 ārējās atslēgas nodrošina datu integritāti (`ON DELETE CASCADE`), bet `CHECK` ierobežojumi – korektas vērtības.
@@ -211,7 +211,7 @@ erDiagram
  
 ---
  
-## 🧪 Testēšana
+## Testēšana
  
 Projektam ir **52 automātiskie JUnit 4 testi**, kas aptver datu validāciju, paroļu jaucējkodu, DAO klases un biznesa
 loģiku (rezervēšana, 15 minūšu atcelšanas noteikums, seansu krustošanās, dubultrezervācijas aizliegums, ārējo atslēgu
@@ -234,7 +234,7 @@ ietekmēti.
  
 ---
  
-## 🔧 Biežākās problēmas
+## Biežākās problēmas
  
 | Problēma | Risinājums |
 |---|---|
@@ -245,7 +245,7 @@ ietekmēti.
  
 ---
  
-## 📚 Dokumentācija
+## Dokumentācija
  
 Projekta paskaidrojošais apraksts (prasību specifikācija, modeļi, ER diagramma, datu vārdnīca, UML klašu diagramma,
 GUI skices, testēšanas plāns un lietotāja rokasgrāmata) tiek iesniegts atsevišķā dokumentā
